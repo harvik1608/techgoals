@@ -24,5 +24,5 @@ Route::resource('/customers', App\Http\Controllers\CustomerController::class);
 Route::get('/load-customers', [App\Http\Controllers\CustomerController::class, 'load'])->name('load-customers');
 Route::get('/filter-customer', [App\Http\Controllers\CustomerController::class, 'load'])->name('filter-customer');
 
-Route::resource('/areas', App\Http\Controllers\AreaController::class);
-Route::get('/load-areas', [App\Http\Controllers\AreaController::class, 'load'])->name('load-areas');
+Route::resource('/plans', App\Http\Controllers\PlanController::class);
+Route::get('/load-plans', [App\Http\Controllers\PlanController::class, 'load'])->name('load-plans');

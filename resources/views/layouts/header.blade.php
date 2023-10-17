@@ -80,20 +80,26 @@
 			<ul class="app-menu">
 				<li>
 					<a class="app-menu__item" href="{{ url('home') }}">
-						<i class="app-menu__icon bi bi-bank"></i>
+						<i class="app-menu__icon bi bi-speedometer"></i>
 						<span class="app-menu__label">Dashboard</span>
 					</a>
 				</li>
 				<li>
-					<a class="app-menu__item" href="{{ url('customers') }}">
+					<a class="app-menu__item" href="{{ url('users') }}">
 						<i class="app-menu__icon bi bi-people"></i>
-						<span class="app-menu__label">Customers</span>
+						<span class="app-menu__label">Users</span>
 					</a>
 				</li>
 				<li>
-					<a class="app-menu__item" href="{{ url('areas') }}">
+					<a class="app-menu__item" href="{{ url('plans') }}">
 						<i class="app-menu__icon bi bi-bank"></i>
-						<span class="app-menu__label">Areas</span>
+						<span class="app-menu__label">Plans</span>
+					</a>
+				</li>
+				<li>
+					<a class="app-menu__item" href="{{ url('plans') }}">
+						<i class="app-menu__icon bi bi-bank"></i>
+						<span class="app-menu__label">Subscriptions</span>
 					</a>
 				</li>
 			</ul>

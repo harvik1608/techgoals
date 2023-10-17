@@ -24,12 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = array();
-        for($i = 1; $i <= 12; $i ++) {
-            $count = Customer::whereMonth('created_at',$i)->count();
-            $data[] = $count;
-        }
-        $data = json_encode($data);
-        return view('dashboard',compact('data'));
+        return view('dashboard');
     }
 }
