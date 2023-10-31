@@ -23,6 +23,10 @@
                 case 2:
                     $date = date("Y-m-d",strtotime("-".setting('def_join')." day"));
                     break;
+
+                case 3:
+                    $date = date("d-M-Y",strtotime($date));
+                    break;
             }
             return $date;
         }

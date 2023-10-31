@@ -33,3 +33,5 @@ Route::get('/edit-settings', [App\Http\Controllers\HomeController::class, 'edit_
 Route::post('/update-settings', [App\Http\Controllers\HomeController::class, 'update_settings'])->name('update-settings');
 Route::resource('/pipeline_types', App\Http\Controllers\PipelineTypeController::class);
 Route::get('/load-pipeline-types', [App\Http\Controllers\PipelineTypeController::class, 'load'])->name('load-pipeline-types');
+Route::resource('/pipelines', App\Http\Controllers\PipelineController::class);
+Route::get('/load-pipelines', [App\Http\Controllers\PipelineController::class, 'load'])->name('load-pipelines');
