@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\GeneralTrait;
 use Illuminate\Http\Request;
-use App\Models\Customer;
-use App\Models\Area;
+use App\Models\User;
 use Redirect;
 
 class CustomerController extends Controller

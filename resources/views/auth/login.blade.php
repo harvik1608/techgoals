@@ -1,127 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui, viewport-fit=cover">
-        <meta name="theme-color" content="#2196f3">
-        <meta name="author" content="" /> 
-        <meta name="keywords" content="" /> 
-        <meta name="robots" content="" /> 
-        <meta name="description" content=""/>
-        <meta property="og:title" content="" />
-        <meta property="og:description" content="" />
-        <meta property="og:image" content="error.html"/>
-        <meta name="format-detection" content="telephone=no">
-        
-        <!-- Favicons Icon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png') }}" />
-        
-        <!-- Title -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{{ get_setting_val('app_name') }}</title>
-        
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="{{ asset('frontend/vendor/swiper/swiper-bundle.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
 
-        <!-- Toast -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/toast/jquery.toast.css') }}">
-        
-        <!-- Google Fonts -->
+        <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/backend.css') }}?v=1.0.0">  
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
-        <style type="text/css">
-            body, h1, .jq-toast-single {
+        <style>
+            body, .jq-toast-single {
                 font-family: 'Readex Pro', sans-serif !important;
             }
-            .input-group-icon .form-control {
-                font-weight: 400 !important;
+            .error {
+                color: #FF0000;
             }
         </style>
-    </head>   
-    <body class="gradiant-bg">
-        <div class="page-wraper">
-            <div id="preloader">
-                <div class="spinner"></div>
-            </div>
-            <div class="content-body">
-                <div class="container vh-100">
-                    <div class="welcome-area">
-                        <div class="bg-image bg-image-overlay" style="background-image: url({{ asset('frontend/'.get_setting_val('banner')) }});"></div>
-                        <div class="join-area">
-                            <div class="started">
-                                <h1 class="title">Sign In - {{ get_setting_val('app_name') }}</h1>
-                                <p>.</p>
-                            </div>
-                            <form method="POST" action="{{ route('login') }}">
-                                @csrf
-                                <div class="mb-3 input-group input-group-icon">
-                                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Your email" />
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 input-group input-group-icon">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Your password" />
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <button class="btn btn-primary btn-block mb-3">LOGIN</button>
-                            </form>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="javascript:void(0);" class="text-light text-center d-block">Don't have an account?</a>
-                                <a href="{{ route('register') }}" class="btn-link d-block ms-3 text-underline">Let's create it.</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </head>
+    <body>
+        <div id="loading">
+            <div id="loading-center">
             </div>
         </div>
-        <script src='{{ asset("frontend/js/jquery.js") }}'></script>
-        <script src='{{ asset("frontend/vendor/bootstrap/js/bootstrap.bundle.min.js") }}'></script>
-        <script src='{{ asset("frontend/vendor/wow/dist/wow.min.js") }}'></script>
-        <script src='{{ asset("frontend/vendor/swiper/swiper-bundle.min.js") }}'></script>
-        <script src='{{ asset("frontend/js/dz.carousel.js") }}'></script>
-        <script src='{{ asset("frontend/js/settings.js") }}'></script>
-        <script src='{{ asset("frontend/js/custom.js") }}'></script>
-        <script src='{{ asset("frontend/toast/jquery.toast.js") }}'></script>
+        <div class="wrapper">
+            <section class="login-content">
+                <div class="container h-100">
+                    <div class="row align-items-center justify-content-center h-100">
+                       <div class="col-md-5">
+                          <div class="card p-3">
+                             <div class="card-body">
+                                <div class="auth-logo">
+                                   <img src="{{ asset('uploads/'.get_setting_val('app_logo')) }}" class="img-fluid  rounded-normal  darkmode-logo" alt="logo">
+                                   <img src="{{ asset('uploads/'.get_setting_val('app_logo')) }}" class="img-fluid rounded-normal light-logo" alt="logo">
+                                </div>
+                                <h3 class="mb-3 font-weight-bold text-center">Sign In</h3>
+                                <p class="text-center text-secondary mb-4">Log in to your account to continue</p>
+                                <form action="{{ route('login') }}" method="post">
+                                    @csrf
+                                   <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="text-secondary">Email</label>
+                                                <input class="form-control" type="email" placeholder="Enter Email" name="email" />
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mt-2">
+                                            <div class="form-group">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label class="text-secondary">Password</label>
+                                                    <label><a href="auth-recover-pwd.html">Forgot Password?</a></label>
+                                                </div>
+                                                <input class="form-control" type="password" placeholder="Enter Password" name="password" />
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <button type="submit" class="btn btn-primary btn-block mt-2">SUBMIT</button>
+                                   <div class="col-lg-12 mt-3">
+                                        <p class="mb-0 text-center">Powered by Creditline India</p>
+                                   </div>
+                                </form>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="{{ asset('assets/js/backend-bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/js/customizer.js') }}"></script>
+        <script src="{{ asset('assets/js/sidebar.js') }}"></script>
+        <script src="{{ asset('assets/js/flex-tree.min.js') }}"></script>
+        <script src="{{ asset('assets/js/tree.js') }}"></script>
+        <script src="{{ asset('assets/js/table-treeview.js') }}"></script>
+        <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
+        <script src="{{ asset('assets/js/vector-map-custom.js') }}"></script>
+        <script src="{{ asset('assets/js/chart-custom.js') }}"></script>
+        <script src="{{ asset('assets/js/charts/01.js') }}"></script>
+        <script src="{{ asset('assets/js/charts/02.js') }}"></script>
+        <script src="{{ asset('assets/js/slider.js') }}"></script>
+        <script src="{{ asset('assets/vendor/emoji-picker-element/index.js') }}" type="module"></script>
+        <script src="{{ asset('assets/js/app.js') }}"></script>
+        <script src="{{ asset('assets/js/jquery.validate.js') }}"></script>
+        <script src="{{ asset('assets/js/additional_methods.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $("form").submit(function(){
-                    var email = $.trim($("#email").val());
-                    var password = $.trim($("#password").val());
-                    var valid_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-                    if(email == "") {
-                        toast_popup("Enter your email");
-                        $("#email").focus();
-                        return false;
-                    } else if(!valid_email.test(email)) {
-                        toast_popup("Enter valid email");
-                        $("#email").focus();
-                        return false;
+                $("form").validate({
+                    rules:{
+                        email: {
+                            required: true
+                        },
+                        password:{
+                            required: true
+                        }
+                    },
+                    messages:{
+                        email: {
+                            required: "<small class='error'>Email is required</small>"
+                        },
+                        password:{
+                            required: "<small class='error'>Password is required</small>"
+                        }
                     }
-                    
-                    if(password == "") {
-                        toast_popup("Enter your password");
-                        $("#password").focus();
-                        return false;
-                    }
-                });
+                })
             });
-            function toast_popup(message)
-            {
-                $.toast({
-                    text: message,
-                    position: 'bottom-center',
-                    stack: false
-                });
-            }
         </script>
     </body>
 </html>

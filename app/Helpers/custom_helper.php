@@ -5,7 +5,10 @@
         function get_setting_val($key)
         {
             $setting = Setting::select('setting_val')->where('setting_key',$key)->first();
-            return $setting['setting_val'];
+            if($setting)
+                return $setting['setting_val'];
+            else 
+                return "";
         }
     }
 

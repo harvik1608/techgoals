@@ -20,9 +20,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/customers', App\Http\Controllers\CustomerController::class);
-Route::get('/load-customers', [App\Http\Controllers\CustomerController::class, 'load'])->name('load-customers');
-Route::get('/filter-customer', [App\Http\Controllers\CustomerController::class, 'load'])->name('filter-customer');
+Route::resource('/users', App\Http\Controllers\UserController::class);
+Route::get('/load-users', [App\Http\Controllers\UserController::class, 'load'])->name('load-users');
+Route::resource('/lenders', App\Http\Controllers\LenderController::class);
+Route::get('/load-lenders', [App\Http\Controllers\LenderController::class, 'load'])->name('load-lenders');
+Route::get('/edit-profile', [App\Http\Controllers\HomeController::class, 'edit_profile'])->name('edit-profile');
+Route::post('/update-profile', [App\Http\Controllers\HomeController::class, 'update_profile'])->name('update-profile');
+Route::post('/submit-change-password', [App\Http\Controllers\HomeController::class, 'submit_change_password'])->name('submit-change-password');
+Route::get('/change-password', [App\Http\Controllers\HomeController::class, 'change_password'])->name('change-password');
 
-Route::resource('/plans', App\Http\Controllers\PlanController::class);
-Route::get('/load-plans', [App\Http\Controllers\PlanController::class, 'load'])->name('load-plans');
+Route::get('/edit-settings', [App\Http\Controllers\HomeController::class, 'edit_settings'])->name('edit-settings');
+Route::post('/update-settings', [App\Http\Controllers\HomeController::class, 'update_settings'])->name('update-settings');
+Route::resource('/pipeline_types', App\Http\Controllers\PipelineTypeController::class);
+Route::get('/load-pipeline-types', [App\Http\Controllers\PipelineTypeController::class, 'load'])->name('load-pipeline-types');
