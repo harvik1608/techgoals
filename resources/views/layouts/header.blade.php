@@ -60,17 +60,6 @@
                             </li>
                             @if(auth()->user()->role == 1)
                                 <li class="sidebar-layout">
-                                    <a href="{{ url('users') }}" class="svg-icon">
-                                        <i class="">
-                                            <svg class="svg-icon" id="iq-user-1-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </i>
-                                        <span class="ml-2">Users</span>
-                                        <!-- <p class="mb-0 w-10 badge badge-pill badge-primary">6</p> -->
-                                    </a>
-                                </li>
-                                <li class="sidebar-layout">
                                     <a href="{{ url('lenders') }}" class="svg-icon">
                                         <i class="">
                                             <svg class="svg-icon" id="iq-user-1-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,6 +91,45 @@
                                         <span class="ml-2">CRM</span>
                                         <!-- <p class="mb-0 w-10 badge badge-pill badge-primary">6</p> -->
                                     </a>
+                                </li>
+                                <li class="sidebar-layout">
+                                    <a href="#app1" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                                        </i>
+                                        <span class="ml-2">Settings</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                    </a>
+                                    <ul id="app1" class="submenu collapse" data-parent="#iq-sidebar-toggle">                    
+                                        <li class=" sidebar-layout">
+                                            <a href="{{ route('organization') }}" class="svg-icon">
+                                                <i class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                                                </i><span class="">Organization</span>
+                                            </a>
+                                        </li>
+                                        <li class=" sidebar-layout">
+                                            <a href="{{ route('edit-profile') }}" class="svg-icon">
+                                                <i class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                                                </i><span class="">Profile</span>
+                                            </a>
+                                        </li>
+                                        <li class=" sidebar-layout">
+                                            <a href="{{ url('users') }}" class="svg-icon">
+                                                <i class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                                                </i><span class="">Users</span>
+                                            </a>
+                                        </li>
+                                        <!-- <li class=" sidebar-layout">
+                                            <a href="" class="svg-icon">
+                                                <i class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                                                </i><span class="">Stage Templates</span>
+                                            </a>
+                                        </li> -->
+                                    </ul>
                                 </li>
                             @endif
                         </ul>
@@ -223,8 +251,21 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#iq-sidebar-toggle li.sidebar-layout").each(function(){
-                    if($.trim($(this).find("span").text()) == page_title) {
-                        $(this).addClass("active");
+                    var parent = $(this);
+                    if(!parent.find("ul").length) {
+                        if($.trim(parent.find("span").text()) == page_title) {
+                            parent.addClass("active");
+                        }
+                    } else {
+                        parent.find("#app1 li").each(function(){
+                            if($.trim($(this).text()) == page_title) {
+                                $(this).addClass("active");
+                                parent.addClass("active");
+                                parent.find("a").removeClass("collapsed");
+                                parent.find("a").attr("aria-expanded",true);
+                                $(this).parent().addClass("show");
+                            }
+                        });
                     }
                 })
             });

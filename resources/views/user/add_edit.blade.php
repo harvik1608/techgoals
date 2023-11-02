@@ -14,6 +14,8 @@
         $city = $user['city'];
         $address = $user['address'];
         $avatar = $user['avatar'];
+        $role_id = $user['role_id'];
+        $assigned_to = $user['assigned_to'];
     } else {
         $ptitle = "New User";
         $action = url("users");
@@ -27,6 +29,8 @@
         $city = "";
         $address = "";
         $avatar = "";
+        $role_id = 0;
+        $assigned_to = 0;
     }
 @endphp
 <div class="content-page">
@@ -62,6 +66,42 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Mobile No.*</label>
+                                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $phone }}" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Role*</label>
+                                    <select class="form-control" id="role_id" name="role_id">
+                                        <option value="">Option</option>
+                                        @if($roles)
+                                            @foreach($roles as $key => $val)
+                                                @if($val['id'] == $role_id)
+                                                    <option value="{{ $val['id'] }}" selected>{{ $val['name'] }}</option>
+                                                @else 
+                                                    <option value="{{ $val['id'] }}">{{ $val['name'] }}</option>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationDefault02">Reporting To*</label>
+                                    <select class="form-control" id="assigned_to" name="assigned_to">
+                                        <option value="">Option</option>
+                                        @if($users)
+                                            @foreach($users as $key => $val)
+                                                @if($val['id'] == $assigned_to)
+                                                    <option value="{{ $val['id'] }}" selected>{{ $val['name'] }}</option>
+                                                @else 
+                                                    <option value="{{ $val['id'] }}">{{ $val['name'] }}</option>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
                                     <label for="validationDefault01">Country</label>
                                     <input type="text" class="form-control" id="country" name="country" value="{{ $country }}" />
                                 </div>
@@ -75,11 +115,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault02">Mobile No.</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $phone }}" />
-                                </div>
-                                <div class="col-md-8 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <label for="validationDefault01">Address</label>
                                     <input type="text" class="form-control" id="address" name="address" value="{{ $address }}" />
                                 </div>
@@ -109,7 +145,7 @@
 <script src="{{ asset('assets/js/jquery.validate.js') }}"></script>
 <script src="{{ asset('assets/js/additional_methods.js') }}"></script>
 <script type="text/javascript">
-    var page_title = "Users";
+    var page_title = "Profile";
     $(document).ready(function(){
         $("#userForm").validate({
             rules:{
@@ -123,6 +159,15 @@
                 password:{
                     required: true,
                     minlength: 6
+                },
+                phone:{
+                    required: true
+                },
+                role_id:{
+                    required: true
+                },
+                assigned_to:{
+                    required: true  
                 }
             },
             messages:{
@@ -136,6 +181,15 @@
                 password:{
                     required: "<small class='error'>Password is required</small>",
                     minlength: "<small class='error'>Password must be 8 characters long</small>"
+                },
+                phone:{
+                    required: "<small class='error'>Mobile no. is required</small>",
+                },
+                role_id:{
+                    required: "<small class='error'>Role is required</small>",
+                },
+                assigned_to:{
+                    required: "<small class='error'>Assigned to is required</small>",
                 }
             }
         });

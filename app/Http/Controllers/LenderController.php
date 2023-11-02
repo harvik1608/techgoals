@@ -48,12 +48,32 @@ class LenderController extends Controller
                 } else {
                     $logo = '<img src="'.url('uploads/lender/'.$row['logo']).'" style="width: 75px;height: 75px;border-radius: 100%;" class="img img-responsive" />';
                 }
+                if($row['is_active'] == 1) {
+                    $status = '<div class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                        <div class="custom-switch-inner">
+                           <p class="mb-0"></p>
+                           <input type="checkbox" class="custom-control-input bg-danger" id="customSwitch-'.$row['id'].'" checked="">
+                           <label class="custom-control-label" for="customSwitch-'.$row['id'].'" data-on-label="" data-off-label="">
+                           </label>
+                        </div>
+                     </div>';
+                } else {
+                    $status = '<div class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                        <div class="custom-switch-inner">
+                           <p class="mb-0"></p>
+                           <input type="checkbox" class="custom-control-input bg-danger" id="customSwitch-'.$row['id'].'">
+                           <label class="custom-control-label disabled-switch" for="customSwitch-'.$row['id'].'" data-on-label="" data-off-label="">
+                           </label>
+                        </div>
+                     </div>';
+                }
                 
                 $i = 0;
                 $b_data[$key]['DT_RowId'] = "row_".$row['id'];
                 $b_data[$key][$i++] = $data['iDisplayStart'] + ($key +1);
                 $b_data[$key][$i++] = $logo;
                 $b_data[$key][$i++] = $row['name'];
+                $b_data[$key][$i++] = $status;
                 $b_data[$key][$i++] = $action;
             }
         }
@@ -90,6 +110,7 @@ class LenderController extends Controller
         $row->name = $request->name;
         $row->logo = $logo;
         $row->app_url = $request->app_url == "" ? "" : $request->app_url;
+        $row->is_active = $request->is_active;
         $row->created_by = auth()->user()->id;
         $row->updated_by = auth()->user()->id;
         $row->created_at = format_date(1);
@@ -117,7 +138,7 @@ class LenderController extends Controller
         ],[
             'name.required' => 'Name is required.'
         ]);
-        $logo = $request->old_logo;
+        $logo = $request->old_logo == "" ? "" : $request->old_logo;
         if($_FILES['logo']['name'] != "") {
             $logo = time().'.'.$request->logo->extension();  
             $request->logo->move(public_path('uploads/lender/'), $logo);
@@ -128,6 +149,7 @@ class LenderController extends Controller
         $row->name = $request->name;
         $row->logo = $logo;
         $row->app_url = $request->app_url == "" ? "" : $request->app_url;
+        $row->is_active = $request->is_active;
         $row->updated_by = auth()->user()->id;
         $row->updated_at = format_date(1);
         $row->save();
@@ -145,6 +167,19 @@ class LenderController extends Controller
             unlink(public_path('uploads/lender/'.$logo));
 
         echo json_encode(array("status" => 1));
+        exit;
+    }
+
+    public function change_lender_status(Request $request)
+    {
+        $lender = Lender::select('is_active')->where('id',$request->lender_id)->first();
+        $status = $lender->is_active == 1 ? 0 : 1;
+
+        $lender = Lender::find($request->lender_id);
+        $lender->is_active = $status;
+        $lender->save();
+
+        echo json_encode(array("status" => 200));
         exit;
     }
 }

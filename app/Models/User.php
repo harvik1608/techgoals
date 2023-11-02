@@ -27,6 +27,8 @@ class User extends Authenticatable
         'address',
         'avatar',
         'role',
+        'role_id',
+        'assigned_to',
         'password',
         'created_by',
         'updated_by'

@@ -1,5 +1,8 @@
 @extends('layouts.header')
 @section('content')
+<style>
+
+</style>
 <div class="content-page">
     <div class="container-fluid">
         <div class="row">
@@ -21,6 +24,7 @@
                                         <th width="5%">No.</th>
                                         <th width="10%">Logo</th>
                                         <th width="25%">Name</th>
+                                        <th width="10%">Status</th>
                                         <th width="15%">Action</th>
                                     </tr>
                                 </thead>
@@ -34,6 +38,22 @@
 </div>
 <script type="text/javascript">
     var page_title = "Lenders";
+    $(document).ready(function(){
+        $(document).on("click","input[id^=customSwitch-]",function(){
+            var lender = $(this).attr("id").split("-");
+            $.ajax({
+                url: "{{ route('change-lender-status') }}",
+                dataType: "json",
+                data: {
+                    lender_id: lender[1]
+                },
+                success:function(response){
+                    if(response.status == 200)
+                        window.location.reload();
+                }
+            });
+        });
+    });
     
     datatable();
     function datatable() {

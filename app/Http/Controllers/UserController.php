@@ -6,6 +6,7 @@ use App\Http\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Role;
 use Redirect;
 
 class UserController extends Controller
@@ -43,16 +44,10 @@ class UserController extends Controller
                 $action = "";
                 $action .= '<a class="btn btn-sm btn-warning" href="'.url('users/'.$row['id'].'/edit').'">Edit</a>&nbsp;';
                 $action .= '<a class="btn btn-sm btn-danger" href="javascript:;" onclick=remove_row("'.url('users/'.$row['id']).'")>Delete</a>';
-                if($row['avatar'] == "") {
-                    $avatar = '<img src="'.url('uploads/user/default.png').'" style="width: 75px;height: 75px;border-radius: 100%;" class="img img-responsive" />';
-                } else {
-                    $avatar = '<img src="'.url('uploads/user/'.$row['avatar']).'" style="width: 75px;height: 75px;border-radius: 100%;" class="img img-responsive" />';
-                }
                 
                 $i = 0;
                 $b_data[$key]['DT_RowId'] = "row_".$row['id'];
                 $b_data[$key][$i++] = $data['iDisplayStart'] + ($key +1);
-                $b_data[$key][$i++] = $avatar;
                 $b_data[$key][$i++] = $row['name'];
                 $b_data[$key][$i++] = $row['email'];
                 $b_data[$key][$i++] = $row['phone'];
@@ -73,7 +68,9 @@ class UserController extends Controller
     public function create()
     {
         $user = array();
-        return view('user/add_edit',compact('user'));
+        $roles = Role::select('id','name')->orderBy('name','asc')->get();
+        $users = User::select('id','name')->where('role',2)->where('id','!=',auth()->user()->id)->orderBy('name','asc')->get();
+        return view('user/add_edit',compact('user','roles','users'));
     }
 
     public function store(Request $request)
@@ -100,13 +97,30 @@ class UserController extends Controller
         $row->address = $request->address == "" ? "" : $request->address;
         $row->avatar = $avatar;
         $row->role = 2;
+        $row->role_id = $request->role_id == "" ? 0 : $request->role_id;
+        $row->assigned_to = $request->assigned_to == "" ? 0 : $request->assigned_to;
         $row->password = Hash::make($request->password);
         $row->created_by = auth()->user()->id;
         $row->updated_by = auth()->user()->id;
         $row->created_at = format_date(1);
         $row->updated_at = format_date(1);
         $row->save();
- 
+
+        if($request->role_id != "") {
+            $role_name_arr = array();
+            $roles = User::select('name')->where('role_id',$request->role_id)->get();
+            if($roles) {
+                foreach($roles as $key => $val) {
+                    $role_name_arr[] = $val['name'];
+                }
+            }
+            if(!empty($role_name_arr)) {
+                $role_str = implode(",",$role_name_arr);
+                $role = Role::find($request->role_id);
+                $role->assigned_to = $role_str;
+                $role->save();
+            }
+        }
         return Redirect::to('users');
     }
 
@@ -115,7 +129,9 @@ class UserController extends Controller
         if(!is_null($id)){
             $user = User::find($id);
             if($user){
-                return view('user/add_edit',compact('user'));
+                $roles = Role::select('id','name')->orderBy('name','asc')->get();
+                $users = User::select('id','name')->where('role',2)->where('id','!=',auth()->user()->id)->orderBy('name','asc')->get();
+                return view('user/add_edit',compact('user','roles','users'));
             } else
                 return Redirect::to('users');           
         }
@@ -146,12 +162,30 @@ class UserController extends Controller
         $row->city = $request->city == "" ? "" : $request->city;
         $row->address = $request->address == "" ? "" : $request->address;
         $row->avatar = $avatar;
+        $row->role_id = $request->role_id == "" ? 0 : $request->role_id;
+        $row->assigned_to = $request->assigned_to == "" ? 0 : $request->assigned_to;
         if($request->password != "") {
             $row->password = Hash::make($request->password);
         }
         $row->updated_by = auth()->user()->id;
         $row->updated_at = format_date(1);
         $row->save();
+
+        if($request->role_id != "") {
+            $role_name_arr = array();
+            $roles = User::select('name')->where('role_id',$request->role_id)->get();
+            if($roles) {
+                foreach($roles as $key => $val) {
+                    $role_name_arr[] = $val['name'];
+                }
+            }
+            if(!empty($role_name_arr)) {
+                $role_str = implode(",",$role_name_arr);
+                $role = Role::find($request->role_id);
+                $role->assigned_to = $role_str;
+                $role->save();
+            }
+        }
  
         return Redirect::to('users');
     }

@@ -1,24 +1,22 @@
 @extends('layouts.header')
 @section('content')
 @php
-    if($lender) {
-        $ptitle = "Edit Lender";
-        $action = url("lenders/".$lender['id']);
+    if($role) {
+        $ptitle = "Edit Role";
+        $action = url("roles/".$role['id']);
         $btn_title = "Save";
 
-        $name = $lender['name'];
-        $logo = $lender['logo'];
-        $app_url = $lender['app_url'];
-        $is_active = $lender['is_active'];
+        $name = $role['name'];
+        $parent_role_id = $role['parent_role_id'];
+        $description = $role['description'];
     } else {
-        $ptitle = "New Lender";
-        $action = url("lenders");
+        $ptitle = "New Role";
+        $action = url("roles");
         $btn_title = "Add";
 
         $name = "";
-        $logo = "";
-        $app_url = "";
-        $is_active = "";
+        $parent_role_id = "";
+        $description = "";
     }
 @endphp
 <div class="content-page">
@@ -28,7 +26,6 @@
                 <div class="card">
                     <form method="post" action="{{ $action }}" id="userForm" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="old_logo" value="{{ $logo }}" />
                         @if($name != "")
                             <input type="hidden" name="_method" value="put">
                         @endif
@@ -40,35 +37,34 @@
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="validationDefault01">Name*</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ $name }}" autofocus />
+                                    <label for="validationDefault01">Name</label>
+                                    <input type="text" id="name" name="name" placeholder="Enter name" class="form-control" value="{{ $name }}" autofocus />
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <label for="validationDefault02">App. URL</label>
-                                    <input type="text" class="form-control" id="app_url" name="app_url" value="{{ $app_url }}" />
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="validationDefault02">Status</label>
-                                    <select class="form-control" id="is_active" name="is_active">
-                                        <option value="1" @if($is_active == 1){{ "selected" }}@endif>Active</option>
-                                        <option value="0" @if($is_active == 0){{ "selected" }}@endif>Inactive</option>
+                                    <label for="validationDefault02">Parent Role ID</label>
+                                    <select class="form-control" id="parent_role_id" name="parent_role_id">
+                                        <option value="">Option</option>
+                                        @if($roles)
+                                            @foreach($roles as $role)
+                                                @if($role['id'] == $parent_role_id)
+                                                    <option value="{{ $role['id'] }}" selected>{{ $role['name'] }}</option>
+                                                @else 
+                                                    <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault01">Logo</label>
-                                    <input type="file" id="validationDefault01" id="logo" name="logo" />
-                                    @if($logo != "")
-                                        <br><br><br><img src="{{ asset('uploads/lender/'.$logo) }}" style="width: 100px;height: 100px;border-radius: 100%;" />
-                                    @endif
+                                <div class="col-md-12 mb-3">
+                                    <label for="validationDefault01">Description</label>
+                                    <textarea class="form-control" id="description" name="description">{{ $description }}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             <div class="form-group mb-0">
                                 <button class="btn btn-primary btn-sm" type="submit">{{ $btn_title }}</button>
-                                <a class="btn btn-danger btn-sm" href="{{ url('lenders') }}">Back</a>
+                                <a class="btn btn-danger btn-sm" href="{{ url('users') }}">Back</a>
                             </div>
                         </div>
                     </form>
@@ -80,7 +76,7 @@
 <script src="{{ asset('assets/js/jquery.validate.js') }}"></script>
 <script src="{{ asset('assets/js/additional_methods.js') }}"></script>
 <script type="text/javascript">
-    var page_title = "Lenders";
+    var page_title = "CRM";
     $(document).ready(function(){
         $("#userForm").validate({
             rules:{
