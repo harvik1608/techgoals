@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Otp;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing');
+});
+Route::get('/send-otp', function (Request $request) {
+    $otp = new Otp;
+    $otp->phone = $request->phone;
+    $otp->otp = 1234;
 });
 
 Auth::routes();
@@ -46,3 +52,4 @@ Route::post('/submit-locale', [App\Http\Controllers\HomeController::class, 'subm
 Route::get('/remove-membership-certificate/{id}', [App\Http\Controllers\HomeController::class, 'remove_membership_certificate'])->name('remove-membership-certificate');
 Route::resource('/roles', App\Http\Controllers\RoleController::class);
 Route::get('/load-roles', [App\Http\Controllers\RoleController::class, 'load'])->name('load-roles');
+Route::get('/stages', [App\Http\Controllers\StageController::class, 'index'])->name('stages');

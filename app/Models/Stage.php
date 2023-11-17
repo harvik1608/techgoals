@@ -10,6 +10,7 @@ class Stage extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'json',
         'is_active',
         'created_by',
         'updated_by',

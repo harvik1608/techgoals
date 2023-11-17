@@ -13,7 +13,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
         <style>
-            body, .jq-toast-single, h4 {
+            body, .jq-toast-single, h4, h5 {
                 font-family: 'Readex Pro', sans-serif !important;
             }
             .error, .error-text {
@@ -122,13 +122,13 @@
                                                 </i><span class="">Users</span>
                                             </a>
                                         </li>
-                                        <!-- <li class=" sidebar-layout">
-                                            <a href="" class="svg-icon">
+                                        <li class=" sidebar-layout">
+                                            <a href="{{ url('stages') }}" class="svg-icon">
                                                 <i class="">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
                                                 </i><span class="">Stage Templates</span>
                                             </a>
-                                        </li> -->
+                                        </li>
                                     </ul>
                                 </li>
                             @endif
